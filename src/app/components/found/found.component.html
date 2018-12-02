@@ -1,0 +1,74 @@
+<app-header></app-header>
+
+<div class="container">
+    <div id="login-page" class="row">
+      <div class="col s12 z-depth-6 card-panel">
+        <div class="alert alert-danger" *ngIf="errorMessage">
+          {{errorMessage}}
+        </div>
+        <form [formGroup]="postLostGoodForm" (ngSubmit)="onSubmit()" novalidate>
+            <fieldset>
+                <legend>Register Found Item</legend>
+      
+                <div class="row">
+                </div>
+      
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">title</i>
+                    <input class="validate" id="goodsName" type="text" formControlName="goodsName">
+                    <label for="goodsName" data-error="wrong" data-success="right">Item Name</label>
+                    <div *ngIf="goodsName.invalid && (goodsName.dirty || goodsName.touched)" class="alert alert-danger">
+                      <div *ngIf="goodsName.errors.required">
+                        goodsName is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">mode_edit</i>
+                    <textarea id="textarea1" class="materialize-textarea" formControlName="description"></textarea>
+                    <label for="textarea1">Description</label>
+                    <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+                      <div *ngIf="description.errors.required">
+                        description is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="file-field input-field">
+                    <div class="btn">
+                      <span>File</span>
+                      <input type="file" formControlName="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                      <input type="date"  formControlName="date" id="date">
+                      <label for="date" data-error="wrong" data-success="right">Enter date of good lost</label>
+                      <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
+                          <div *ngIf="date.errors.required">
+                            date is required.
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <button class="btn btn-primary" [disabled]="!postLostGoodForm.valid">share news</button>
+                  </div>
+                </div>
+      
+              </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
