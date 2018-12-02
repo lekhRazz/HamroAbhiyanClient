@@ -9,7 +9,7 @@ import { Goods } from 'src/app/classes/goods';
 })
 export class LostService {
 
-  _url='';
+  _url='http://localhost:3000/api/item/';
 
   constructor(private _http:HttpClient) { }
 

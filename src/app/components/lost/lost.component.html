@@ -6,7 +6,7 @@
         <div class="alert alert-danger" *ngIf="errorMessage">
           {{errorMessage}}
         </div>
-        <form [formGroup]="postLostGoodForm" (ngSubmit)="onSubmit()" novalidate>
+        <form [formGroup]="postLostGoodForm" *ngIf="!submitted" (ngSubmit)="onSubmit()" novalidate>
           <fieldset>
             <legend>Register Lost Item</legend>
   
@@ -22,9 +22,45 @@
                   <div *ngIf="goodsName.errors.required">
                     goodsName is required.
                   </div>
+                  <div *ngIf="goodsName.errors.minlength">
+                    location must be 3 charactor long.
+                  </div>
                 </div>
               </div>
             </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">location_on</i>
+                <input class="validate" id="location" type="text" formControlName="location">
+                <label for="location" data-error="wrong" data-success="right">Location </label>
+                <div *ngIf="location.invalid && (location.dirty || location.touched)" class="alert alert-danger">
+                  <div *ngIf="location.errors.required">
+                    location is required.
+                  </div>
+                  <div *ngIf="location.errors.minlength">
+                    location must be 4 charactor long.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">contact_phone</i>
+                <input class="validate" id="contact" pattern="^\d{10}$" type="text" formControlName="contact">
+                <label for="contact" data-error="wrong" data-success="right">contact </label>
+                <div *ngIf="contact.invalid && (contact.dirty || contact.touched)" class="alert alert-danger">
+                  <div *ngIf="contact.errors.required">
+                    contact is required.
+                  </div>
+                  <div *ngIf="contact.errors.pattern">
+                    phone must be 10 digit long.
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="row">
               <div class="input-field col s12">
                 <i class="material-icons prefix">mode_edit</i>
@@ -33,6 +69,9 @@
                 <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
                   <div *ngIf="description.errors.required">
                     description is required.
+                  </div>
+                  <div *ngIf="description.errors.minlength">
+                    description must be 20 charactor long.
                   </div>
                 </div>
               </div>

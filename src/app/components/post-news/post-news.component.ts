@@ -11,6 +11,9 @@ import { NewsService } from 'src/app/shared-service/News/news.service';
 export class PostNewsComponent implements OnInit {
 
   postNewsForm: FormGroup;
+  submitted = false;
+  errorMessage = '';
+
   constructor(private newsService: NewsService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
@@ -22,14 +25,17 @@ export class PostNewsComponent implements OnInit {
 
   createForm() {
     this.postNewsForm = this.formBuilder.group({
-      'title': ['', Validators.required],
-      'description': ['', Validators.required],
-      'file': [''],
-      'date': [Date.now()]
+      'title': ['',[ Validators.required,Validators.minLength(10)]],
+      'description': ['', [Validators.required,Validators.minLength(50)]],
+      'file': ['']
     });
   }
 
   onSubmit() {
+    this.submitted=true;
     console.log(this.postNewsForm.value);
+    this.newsService.createNews(this.postNewsForm.value)
+                    .subscribe(data => console.log('success',data),
+                    error=> this.errorMessage=error.statusText)
   }
 }

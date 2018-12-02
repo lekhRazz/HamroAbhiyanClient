@@ -6,7 +6,7 @@
       <div class="alert alert-danger" *ngIf="errorMessage">
         {{errorMessage}}
       </div>
-      <form [formGroup]="postNewsForm" (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="postNewsForm" *ngIf="!submitted" (ngSubmit)="onSubmit()" novalidate>
         <fieldset>
           <legend>Post News</legend>
 
@@ -22,6 +22,9 @@
                 <div *ngIf="title.errors.required">
                   Title is required.
                 </div>
+                <div *ngIf="title.errors.minlength">
+                  Title must be 10 charactor long
+                </div>
               </div>
             </div>
           </div>
@@ -33,6 +36,9 @@
               <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
                 <div *ngIf="description.errors.required">
                   description is required.
+                </div>
+                <div *ngIf="description.errors.minlength">
+                  description must be 50 charactor long
                 </div>
               </div>
             </div>
@@ -46,12 +52,6 @@
               <div class="file-path-wrapper">
                 <input class="file-path validate" type="text">
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input type="hidden" value="" formControlName="date">
-              
             </div>
           </div>
           <div class="row">
