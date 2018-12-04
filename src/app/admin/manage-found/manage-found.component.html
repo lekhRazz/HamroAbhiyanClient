@@ -1,5 +1,31 @@
 <app-dashboardheader></app-dashboardheader>
+<div id="page-wrapper" style="min-height: 217px;">
+  <div class="row">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      {{errorMessage}}
+    </div>
+    <table *ngIf="listFound" class="responsive-table">
+      <thead>
+        <tr>
+          <td>S.N.</td>
+          <td>Date</td>
+          <td>Goods Nae</td>
+          <td>Found By</td>
+          <td></td>
+        </tr>
+      </thead>
 
-<p>
-  manage-found works!
-</p>
+      <tbody>
+        <tr *ngFor="let itm of listFound;let i=index">
+          <td>{{i+1}}</td>
+          <td>{{itm.date | date}}</td>
+          <td>{{itm.goodsName}}</td>
+          <td>{{itm.foundBy.name}}</td>
+          <td><a>view details</a></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+</div>

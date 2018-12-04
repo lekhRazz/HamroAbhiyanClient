@@ -1,4 +1,29 @@
 <app-dashboardheader></app-dashboardheader>
-<p>
-  managenews works!
-</p>
+<div id="page-wrapper" style="min-height: 217px;">
+  <div class="row">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      {{errorMessage}}
+    </div>
+    <table *ngIf="newsList" class="responsive-table">
+      <thead>
+        <tr>
+          <th>S.N.</th>
+          <th>Date</th>
+          <th>Title</th>
+          <td>CreatedBy</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let nws of newsList;let i=index">
+          <td>{{i+1}}</td>
+          <td>{{nws.date | date}}</td>
+          <td>{{nws.title}}</td>
+          <td>{{nws.createdBy.name}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+</div>

@@ -1,74 +1,136 @@
 <app-header></app-header>
 
 <div class="container">
-    <div id="login-page" class="row">
-      <div class="col s12 z-depth-6 card-panel">
-        <div class="alert alert-danger" *ngIf="errorMessage">
-          {{errorMessage}}
-        </div>
-        <form [formGroup]="postLostGoodForm" (ngSubmit)="onSubmit()" novalidate>
-            <fieldset>
-                <legend>Register Found Item</legend>
-      
-                <div class="row">
-                </div>
-      
-                <div class="row">
-                  <div class="input-field col s12">
-                    <i class="material-icons prefix">title</i>
-                    <input class="validate" id="goodsName" type="text" formControlName="goodsName">
-                    <label for="goodsName" data-error="wrong" data-success="right">Item Name</label>
-                    <div *ngIf="goodsName.invalid && (goodsName.dirty || goodsName.touched)" class="alert alert-danger">
-                      <div *ngIf="goodsName.errors.required">
-                        goodsName is required.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s12">
-                    <i class="material-icons prefix">mode_edit</i>
-                    <textarea id="textarea1" class="materialize-textarea" formControlName="description"></textarea>
-                    <label for="textarea1">Description</label>
-                    <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
-                      <div *ngIf="description.errors.required">
-                        description is required.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="file-field input-field">
-                    <div class="btn">
-                      <span>File</span>
-                      <input type="file" formControlName="file">
-                    </div>
-                    <div class="file-path-wrapper">
-                      <input class="file-path validate" type="text">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                      <input type="date"  formControlName="date" id="date">
-                      <label for="date" data-error="wrong" data-success="right">Enter date of good lost</label>
-                      <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
-                          <div *ngIf="date.errors.required">
-                            date is required.
-                          </div>
-                        </div>
-                    </div>
-                  </div>
-                <div class="row">
-                  <div class="input-field col s12">
-                    <button class="btn btn-primary" [disabled]="!postLostGoodForm.valid">share news</button>
-                  </div>
-                </div>
-      
-              </fieldset>
-        </form>
+  <div id="login-page" class="row">
+    <div class="col s12 z-depth-6 card-panel">
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{errorMessage}}
       </div>
+      <form [formGroup]="postFoundGoodForm" (ngSubmit)="onSubmit()" novalidate>
+        <fieldset>
+          <legend>Register Found Item</legend>
+
+          <div class="row">
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">title</i>
+              <input class="validate" id="goodsName" type="text" formControlName="goodsName">
+              <label for="goodsName" data-error="wrong" data-success="right">Item Name</label>
+              <div *ngIf="goodsName.invalid && (goodsName.dirty || goodsName.touched)" class="alert alert-danger">
+                <div *ngIf="goodsName.errors.required">
+                  goodsName is required.
+                </div>
+                <div *ngIf="goodsName.errors.minlength">
+                  location must be 3 charactor long.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">location_on</i>
+              <input class="validate" id="location" type="text" formControlName="location">
+              <label for="location" data-error="wrong" data-success="right">Location </label>
+              <div *ngIf="location.invalid && (location.dirty || location.touched)" class="alert alert-danger">
+                <div *ngIf="location.errors.required">
+                  location is required.
+                </div>
+                <div *ngIf="location.errors.minlength">
+                  location must be 4 charactor long.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">contact_phone</i>
+              <input class="validate" id="contact" pattern="^\d{10}$" type="text" formControlName="contact">
+              <label for="contact" data-error="wrong" data-success="right">contact </label>
+              <div *ngIf="contact.invalid && (contact.dirty || contact.touched)" class="alert alert-danger">
+                <div *ngIf="contact.errors.required">
+                  contact is required.
+                </div>
+                <div *ngIf="contact.errors.pattern">
+                  phone must be 10 digit long.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">mode_edit</i>
+              <textarea id="textarea1" class="materialize-textarea" formControlName="description"></textarea>
+              <label for="textarea1">Description</label>
+              <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+                <div *ngIf="description.errors.required">
+                  description is required.
+                </div>
+                <div *ngIf="description.errors.minlength">
+                  description must be 20 charactor long.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="file-field input-field">
+              <div class="btn">
+                <span>File</span>
+                <input type="file" formControlName="file">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input type="date" formControlName="date" id="date">
+              <label for="date" data-error="wrong" data-success="right">Enter date of good found</label>
+              <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
+                <div *ngIf="date.errors.required">
+                  date is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <button class="btn btn-primary" [disabled]="!postFoundGoodForm.valid">share news</button>
+            </div>
+          </div>
+
+        </fieldset>
+      </form>
     </div>
   </div>
+  <hr>
+  <hr>
+  <h3>Current News</h3>
+  <hr>
+  <hr>
+  <div class="news-wrapper">
+    <table *ngIf="listFound">
+      <tr>
+        <td>S.N.</td>
+        <td>Date</td>
+        <td>Goods Nae</td>
+        <td>Found By</td>
+        <td></td>
+      </tr>
+      <tr *ngFor="let itm of listFound;let i=index">
+        <td>{{i+1}}</td>
+        <td>{{itm.date | date}}</td>
+        <td>{{itm.goodsName}}</td>
+        <td>{{itm.foundBy.name}}</td>
+        <td><a>view details</a></td>
+      </tr>
+    </table>
+  </div>
+</div>
 
-  <app-footer></app-footer>
+<app-footer></app-footer>

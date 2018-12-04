@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { JobService } from 'src/app/shared-service/Job/job.service';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-jobs',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageJobsComponent implements OnInit {
 
-  constructor() { }
+  listJobs: any = [];
+  errorMessage = '';
+
+  constructor(private jobService: JobService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
+    this.showJobRecord();
+
   }
 
+  showJobRecord() {
+    this.jobService.getJobs()
+      .subscribe(data => this.listJobs = data,
+        error => this.errorMessage = error);
+  }
 }

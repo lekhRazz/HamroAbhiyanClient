@@ -13,11 +13,13 @@ export class LostComponent implements OnInit {
   postLostGoodForm: FormGroup;
   submitted = false;
   errorMessage = '';
+  lostItemList:any=[];
 
   constructor(private lostService:LostService,private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.createForm();
+    this.showLostRecords();
   }
 
   get goodsName() { return this.postLostGoodForm.get('goodsName'); }
@@ -44,5 +46,11 @@ export class LostComponent implements OnInit {
     this.lostService.createLostReport(this.postLostGoodForm.value)
                     .subscribe(data => console.log('success',data),
                     error=> this.errorMessage=error.statusText)
+  }
+
+  showLostRecords(){
+    this.lostService.getLostRecords()
+        .subscribe(data=>this.lostItemList=data,
+          error=>this.errorMessage=error);
   }
 }

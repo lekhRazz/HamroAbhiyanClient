@@ -13,29 +13,40 @@ export class PostNewsComponent implements OnInit {
   postNewsForm: FormGroup;
   submitted = false;
   errorMessage = '';
+  newsList: any = [];
 
   constructor(private newsService: NewsService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.createForm();
+    this.showNewsPage();
   }
-  
+
   get title() { return this.postNewsForm.get('title'); }
   get description() { return this.postNewsForm.get('description'); }
 
   createForm() {
     this.postNewsForm = this.formBuilder.group({
-      'title': ['',[ Validators.required,Validators.minLength(10)]],
-      'description': ['', [Validators.required,Validators.minLength(50)]],
+      'title': ['', [Validators.required, Validators.minLength(10)]],
+      'description': ['', [Validators.required, Validators.minLength(50)]],
       'file': ['']
     });
   }
 
   onSubmit() {
-    this.submitted=true;
+    this.submitted = true;
     console.log(this.postNewsForm.value);
     this.newsService.createNews(this.postNewsForm.value)
-                    .subscribe(data => console.log('success',data),
-                    error=> this.errorMessage=error.statusText)
+      .subscribe(data => console.log('success', data),
+        error => this.errorMessage = error.statusText)
+  }
+
+  showNewsPage() {
+    this.newsService.getNews()
+      .subscribe(data => {this.newsList = data    ;
+        console.log(this.newsList);
+      },
+        error => this.errorMessage = error);
+
   }
 }

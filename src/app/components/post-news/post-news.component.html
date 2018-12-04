@@ -64,6 +64,29 @@
       </form>
     </div>
   </div>
+  <hr>
+  <hr>
+  <h3>Current News</h3>
+  <hr>
+  <hr>
+  <div class="news-wrapper">
+    <table *ngIf="newsList">
+      <tr>
+        <td>S.N.</td>
+        <td>Date</td>
+        <td>Title</td>
+        <td>Created By</td>
+        <td></td>
+      </tr>
+      <tr *ngFor="let nws of newsList;let i=index">
+        <td>{{i+1}}</td>
+        <td>{{nws.date | date}}</td>
+        <td>{{nws.title}}</td>
+        <td>{{nws.createdBy.name}}</td>
+        <td><a>View news</a></td>
+      </tr>
+    </table>
+  </div>
 </div>
 
 <app-footer></app-footer>

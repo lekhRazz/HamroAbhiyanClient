@@ -3,6 +3,8 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AwarenessService } from 'src/app/shared-service/Awareness/awareness.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-awareness',
@@ -12,10 +14,14 @@ import { Router } from '@angular/router';
 export class AwarenessComponent implements OnInit {
 
   awarenessForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
+  submitted = false;
+  errorMessage = '';
+  awarenessList:any=[];
+  constructor(private awrnService:AwarenessService,private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.createForm();
+    this.showAwareness();
   }
 
   get title() { return this.awarenessForm.get('title'); }
@@ -23,15 +29,22 @@ export class AwarenessComponent implements OnInit {
 
   createForm() {
     this.awarenessForm = this.formBuilder.group({
-      'title': ['', Validators.required],
-      'description': ['', Validators.required],
-      'file': [''],
-      'date': ['']
+      'title': ['',[ Validators.required,Validators.minLength(10)]],
+      'description': ['', [Validators.required,Validators.minLength(50)]],
+      'file': ['']
     });
   }
 
   onSubmit(){
-
+    this.submitted=true;
+    console.log(this.awarenessForm.value);
+    this.awrnService.createNews(this.awarenessForm.value)
+                    .subscribe(data => console.log('success',data),
+                    error=> this.errorMessage=error.statusText)
   }
-
+  showAwareness(){
+    this.awrnService.getAwarenesses()
+                    .subscribe(data=>this.awarenessList=data,
+                      error=>this.errorMessage=error);
+  }
 }

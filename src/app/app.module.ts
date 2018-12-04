@@ -14,6 +14,7 @@ import { NewsService } from './shared-service/News/news.service';
 import { LostService } from './shared-service/Lost/lost.service';
 import { FoundService } from './shared-service/Found/found.service';
 import { JobService } from './shared-service/Job/job.service';
+import { AwarenessService } from './shared-service/Awareness/awareness.service';
 
 
 
@@ -31,7 +32,7 @@ import { JobService } from './shared-service/Job/job.service';
     NgbModule,
     ChartistModule
   ],
-  providers: [UserService,NewsService,LostService,FoundService,JobService],
+  providers: [UserService,NewsService,LostService,FoundService,JobService,AwarenessService],
   bootstrap: [AppComponent]
 })
 

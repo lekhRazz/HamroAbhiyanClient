@@ -6,7 +6,7 @@
       <div class="alert alert-danger" *ngIf="errorMessage">
         {{errorMessage}}
       </div>
-      <form [formGroup]="postJobForm" (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="postJobForm"  *ngIf="!submitted" (ngSubmit)="onSubmit()" novalidate>
         <fieldset>
           <legend>Post Job Vacancy</legend>
 
@@ -22,6 +22,9 @@
                 <div *ngIf="post.errors.required">
                   post is required.
                 </div>
+                <div *ngIf="post.errors.minlength">
+                  post must be minimum 3 length charactor
+                </div>
               </div>
             </div>
           </div>
@@ -35,6 +38,10 @@
                 <div *ngIf="emplyNumber.errors.required">
                   emplyNumber is required.
                 </div>
+                <div *ngIf="emplyNumber.errors.min">
+                  emplyNumber must be atleast 1
+                </div>
+
               </div>
             </div>
           </div>
@@ -62,6 +69,9 @@
                 <div *ngIf="officeName.errors.required">
                   officeName is required.
                 </div>
+                <div *ngIf="officeName.errors.minlength">
+                  officeName must be 4 charactor long
+                </div>
               </div>
             </div>
           </div>
@@ -74,6 +84,9 @@
               <div *ngIf="address.invalid && (address.dirty || address.touched)" class="alert alert-danger">
                 <div *ngIf="address.errors.required">
                   address is required.
+                </div>
+                <div *ngIf="address.errors.minlength">
+                  address must be 4 charactor long
                 </div>
               </div>
             </div>
@@ -114,6 +127,9 @@
                 <div *ngIf="description.errors.required">
                   description is required.
                 </div>
+                <div *ngIf="description.errors.minlength">
+                  description must be minimum 10 length charactor
+                </div>
               </div>
             </div>
           </div>
@@ -128,7 +144,17 @@
               </div>
             </div>
           </div>
-
+          <div class="row">
+            <div class="input-field col s12">
+              <input type="date"  formControlName="deadLine" id="deadLine">
+              <label for="deadLine" data-error="wrong" data-success="right">Enter deadLine for this post</label>
+              <div *ngIf="deadLine.invalid && (deadLine.dirty || deadLine.touched)" class="alert alert-danger">
+                  <div *ngIf="deadLine.errors.required">
+                    deadlin is required.
+                  </div>
+                </div>
+            </div>
+          </div>
           <div class="row">
             <div class="input-field col s12">
               <button class="btn btn-primary" [disabled]="!postJobForm.valid">share news</button>
@@ -143,6 +169,24 @@
   <hr>
   <h5>Job Vacancies</h5>
   <hr>
+  <div class="news-wrapper">
+    <table *ngIf="listJobs">
+      <tr>
+        <td>S.N.</td>
+        <td>Date</td>
+        <td>Title</td>
+        <td>Lost By</td>
+        <td></td>
+      </tr>
+      <tr *ngFor="let job of listJobs;let i=index">
+        <td>{{i+1}}</td>
+        <td>{{job.deadLine | date}}</td>
+        <td>{{job.post}}</td>
+        <td>{{job.postedBy.name}}</td>
+        <td><a>view details</a></td>
+      </tr>
+    </table>
+  </div>
 </div>
 
 <app-footer></app-footer>
