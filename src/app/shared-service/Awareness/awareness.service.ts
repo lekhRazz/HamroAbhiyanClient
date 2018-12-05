@@ -21,7 +21,14 @@ export class AwarenessService {
     return this._http.get<any>(environment.baseUrl+'awareness')
                 .pipe(catchError(this.errorHandler));
   }
-  
+  getAwarenessById(id:String):Observable<any>{
+    return this._http.get<any>(environment.baseUrl+'awareness/'+id)
+                      .pipe(catchError(this.errorHandler));
+  }
+  deleteAwareness(id:String):Observable<any>{
+    return this._http.delete<any>(environment.baseUrl+'awareness/'+id)
+                      .pipe(catchError(this.errorHandler));
+  }
   errorHandler(error:HttpErrorResponse){
     return throwError(error);
   }

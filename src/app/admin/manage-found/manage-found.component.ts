@@ -26,4 +26,21 @@ export class ManageFoundComponent implements OnInit {
   }
  
 
+  deleteFoundData: any;
+  deleteFoundRecord(itm) {
+    this.deleteFoundData = itm;
+    $("#deleteModal").modal("show");
+  }
+
+  confirmDelete() {
+    this.foundService.deleteFound(this.deleteFoundData._id)
+      .subscribe((data) => {
+        this.listFound.splice(this.listFound.indexOf(this.deleteFoundData), 1);
+      },
+        (error) => {
+          console.log(error);
+        });
+    $("#deleteModal").modal("hide");
+
+  }
 }

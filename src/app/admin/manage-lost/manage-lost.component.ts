@@ -10,21 +10,39 @@ import { Router } from '@angular/router';
 })
 export class ManageLostComponent implements OnInit {
 
-  
+
   submitted = false;
   errorMessage = '';
-  lostItemList:any=[];
+  lostItemList: any = [];
 
-  constructor(private lostService:LostService,private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private lostService: LostService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.showLostRecords();
 
   }
 
-  showLostRecords(){
+  showLostRecords() {
     this.lostService.getLostRecords()
-        .subscribe(data=>this.lostItemList=data,
-          error=>this.errorMessage=error);
+      .subscribe(data => this.lostItemList = data,
+        error => this.errorMessage = error);
+  }
+
+  deleteLostData: any;
+  deleteLostRecord(lstItm) {
+    this.deleteLostData = lstItm;
+    $("#deleteModal").modal("show");
+  }
+
+  confirmDelete() {
+    this.lostService.deleteLostRecord(this.deleteLostData._id)
+      .subscribe((data) => {
+        this.lostItemList.splice(this.lostItemList.indexOf(this.deleteLostData), 1);
+      },
+        (error) => {
+          console.log(error);
+        });
+    $("#deleteModal").modal("hide");
+
   }
 }

@@ -26,4 +26,23 @@ export class ManageAwarenessComponent implements OnInit {
                     .subscribe(data=>this.awarenessList=data,
                       error=>this.errorMessage=error);
   }
+
+
+  deleteAwarenessData: any;
+  deleteAwarenessRecord(nws){
+    this.deleteAwarenessData = nws;
+    $("#deleteModal").modal("show");
+  }
+
+  confirmDelete() {
+    this.awrnService.deleteAwareness(this.deleteAwarenessData._id)
+      .subscribe((data) => {
+        this.awarenessList.splice(this.awarenessList.indexOf(this.deleteAwarenessData), 1);
+      },
+        (error) => {
+          console.log(error);
+        });
+    $("#deleteModal").modal("hide");
+
+  }
 }

@@ -25,4 +25,23 @@ export class ManageJobsComponent implements OnInit {
       .subscribe(data => this.listJobs = data,
         error => this.errorMessage = error);
   }
+
+
+  deleteJobData: any;
+  deleteJobRecord(jobs){
+    this.deleteJobData = jobs;
+    $("#deleteModal").modal("show");
+  }
+
+  confirmDelete() {
+    this.jobService.deleteJob(this.deleteJobData._id)
+      .subscribe((data) => {
+        this.listJobs.splice(this.listJobs.indexOf(this.deleteJobData), 1);
+      },
+        (error) => {
+          console.log(error);
+        });
+    $("#deleteModal").modal("hide");
+
+  }
 }

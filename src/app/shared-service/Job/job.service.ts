@@ -24,6 +24,15 @@ export class JobService {
                 .pipe(catchError(this.errorHandler));
   }
 
+  getJobsById(id:String):Observable<any>{
+    return this._http.get<any>(environment.baseUrl+'job/'+id)
+                      .pipe(catchError(this.errorHandler));
+  }
+
+  deleteJob(id:String):Observable<any>{
+    return this._http.delete(environment.baseUrl+'job/'+id)
+                      .pipe(catchError(this.errorHandler));
+  }
   errorHandler(error:HttpErrorResponse){
     return throwError(error);
   }

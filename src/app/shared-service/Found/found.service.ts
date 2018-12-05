@@ -22,7 +22,15 @@ export class FoundService {
     return this._http.get<any>(environment.baseUrl+'found')
                       .pipe(catchError(this.errorHandler));
   }
+ getFoundById(id:String):Observable<any>{
+   return this._http.get<any>(environment.baseUrl+'found/'+id)
+                    .pipe(catchError(this.errorHandler));
+ }
 
+ deleteFound(id:String):Observable<any>{
+   return this._http.delete<any>(environment.baseUrl+'found/'+id)
+                    .pipe(catchError(this.errorHandler));
+ }
   errorHandler(error:HttpErrorResponse){
     return throwError(error);
   }

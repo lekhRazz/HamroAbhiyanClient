@@ -22,7 +22,14 @@ export class LostService {
     return this._http.get<any>(environment.baseUrl + 'lost')
       .pipe(catchError(this.errorHandler));
   }
-
+  getLostRecordById(id: String): Observable<any> {
+    return this._http.get<any>(environment.baseUrl + 'lost/' + id)
+      .pipe(catchError(this.errorHandler));
+  }
+  deleteLostRecord(id: String): Observable<any> {
+    return this._http.delete<any>(environment.baseUrl + 'lost/' + id)
+      .pipe(catchError(this.errorHandler));
+  }
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }

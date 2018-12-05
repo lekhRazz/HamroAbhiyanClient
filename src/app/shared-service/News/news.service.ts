@@ -14,12 +14,23 @@ export class NewsService {
   constructor(private _http: HttpClient) { }
 
   createNews(news: News) {
-    return this._http.post<any>(environment.baseUrl+'news', news)
+    return this._http.post<any>(environment.baseUrl + 'news', news)
       .pipe(catchError(this.errorHandler));
   }
-  getNews():Observable<any>{
-    return this._http.get<any>(environment.baseUrl+'news')
-                .pipe(catchError(this.errorHandler));
+
+  getNews(): Observable<any> {
+    return this._http.get<any>(environment.baseUrl + 'news')
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getNewsById(id: String): Observable<any> {
+    return this._http.get(environment.baseUrl + 'news/' + id)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  deleteNews(id:String):Observable<any>{
+    return this._http.delete<any>(environment.baseUrl+'news/'+id)
+                  .pipe(catchError(this.errorHandler));
   }
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
