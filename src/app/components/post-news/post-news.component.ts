@@ -14,7 +14,12 @@ export class PostNewsComponent implements OnInit {
   errorMessage = '';
   newsList: any = [];
   selectedFile: File = null;
-  constructor(private newsService: NewsService, private formBuilder: FormBuilder, private router: Router) { }
+  
+  constructor(
+    private newsService: NewsService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.createForm();
@@ -54,7 +59,7 @@ export class PostNewsComponent implements OnInit {
 
   }
 
-  viewDetail(nws){
-    this.router.navigate(['/postnews/',nws._id]);
+  viewDetail(nws) {
+    this.router.navigate(['/news/', nws._id]);
   }
 }

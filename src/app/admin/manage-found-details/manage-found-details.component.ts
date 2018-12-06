@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FoundService } from 'src/app/shared-service/Found/found.service';
 
 @Component({
-  selector: 'app-founddetails',
-  templateUrl: './founddetails.component.html',
-  styleUrls: ['./founddetails.component.css']
+  selector: 'app-manage-found-details',
+  templateUrl: './manage-found-details.component.html',
+  styleUrls: ['./manage-found-details.component.css']
 })
-export class FounddetailsComponent implements OnInit {
+export class ManageFoundDetailsComponent implements OnInit {
 
   public detailId;
   foundList: any = [];

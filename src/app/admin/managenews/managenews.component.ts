@@ -48,8 +48,6 @@ export class ManagenewsComponent implements OnInit {
 
   newsDetailList:any;
   viewDetail(nws) {
-    this.newsService.getNewsById(nws._id)
-                    .subscribe(data=>this.newsDetailList=data,
-                      error=>this.errorMessage=error);
+    this.router.navigate(['/admin/news/',nws._id]);
   }
 }

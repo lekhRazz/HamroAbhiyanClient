@@ -1,26 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NewsService } from 'src/app/shared-service/News/news.service';
-import { FormBuilder } from '@angular/forms';
+
 @Component({
-  selector: 'app-newsdetails',
-  templateUrl: './newsdetails.component.html',
-  styleUrls: ['./newsdetails.component.css']
+  selector: 'app-manage-news-details',
+  templateUrl: './manage-news-details.component.html',
+  styleUrls: ['./manage-news-details.component.css']
 })
-export class NewsdetailsComponent implements OnInit {
+export class ManageNewsDetailsComponent implements OnInit {
 
   newsList: any = [];
   errorMessage = '';
   public detailId;
   public imageUrl = '';
-
-  
+  mailResponse: any = [];
   constructor(
     private route: ActivatedRoute,
-    private newsService: NewsService,
-    private formBuilder: FormBuilder,
-    private router: Router
-    ) { }
+    private router: Router,
+    private newsService: NewsService
+  ) { }
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
@@ -36,10 +34,15 @@ export class NewsdetailsComponent implements OnInit {
   }
 
   shareNews(news) {
-    let newsUrl = this.router.url;
+    let newsUrl = "Don't miss our latest news.Click below the link and read latest news" + " " + "localhost:4200/" + this.detailId;
     let reporterEmail = news.createdBy.email;
     console.log(newsUrl);
     console.log(reporterEmail);
+    this.newsService.shareNews(newsUrl, reporterEmail)
+      .subscribe(data => this.mailResponse = data,
+        error => this.errorMessage = error
+      );
 
   }
+
 }

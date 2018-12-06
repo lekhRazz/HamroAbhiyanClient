@@ -1,0 +1,43 @@
+<app-dashboardheader></app-dashboardheader>
+<div id="page-wrapper" style="min-height: 217px;">
+  <div class="row">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      {{errorMessage}}
+    </div>
+    <div class="image-wrapper">
+        <img src="{{foundList.file}}" alt="">
+    </div>
+    <div class="news-wrapper">
+      <table class="responsive-table">
+        <tr>
+          <td>Found Item:</td>
+          <td>{{foundList.goodsName}}</td>
+        </tr>
+        <tr>
+          <td>Found Date:</td>
+          <td>{{foundList.date | date}}</td>
+        </tr>
+        <tr>
+          <td>Found Location:</td>
+          <td>{{foundList.location}}</td>
+        </tr>
+        <tr>
+          <td>Found By:</td>
+          <td>{{foundList.foundBy.name}}</td>
+        </tr>
+        <tr>
+          <td>Contact No</td>
+          <td>{{foundList.contact}}</td>
+        </tr>
+      </table>
+
+      <div class="news-content">
+        {{foundList.description}}
+      </div>
+    </div>
+    <div class="btn-wrapper">
+      <button (click)="shareNews(lostList)" class="btn btn-primary">Share in email</button>
+    </div>
+
+  </div>
+</div>

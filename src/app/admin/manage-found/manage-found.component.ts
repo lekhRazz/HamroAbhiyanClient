@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class ManageFoundComponent implements OnInit {
 
   errorMessage = '';
-  listFound:any=[];
+  listFound: any = [];
 
   constructor(private foundService: FoundService, private formBuilder: FormBuilder, private router: Router) { }
 
@@ -19,12 +19,12 @@ export class ManageFoundComponent implements OnInit {
     this.showFoundRecords();
 
   }
-  showFoundRecords(){
+  showFoundRecords() {
     this.foundService.getFoundReports()
-                     .subscribe(data=>this.listFound=data,
-                       error=>this.errorMessage=error);
+      .subscribe(data => this.listFound = data,
+        error => this.errorMessage = error);
   }
- 
+
 
   deleteFoundData: any;
   deleteFoundRecord(itm) {
@@ -41,6 +41,8 @@ export class ManageFoundComponent implements OnInit {
           console.log(error);
         });
     $("#deleteModal").modal("hide");
-
+  }
+  viewDetail(itm) {
+    this.router.navigate(['/admin/found/', itm._id]);
   }
 }

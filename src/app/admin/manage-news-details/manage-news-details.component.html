@@ -1,0 +1,26 @@
+<app-dashboardheader></app-dashboardheader>
+<div id="page-wrapper" style="min-height: 217px;">
+  <div class="row">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      {{errorMessage}}
+    </div>
+    <h2>{{newsList.title}}</h2>
+    <div class="news-wrapper">
+      <img src="{{newsList.file}}" alt="">
+      <table *ngIf="newsList">
+        <tr>
+          <td>{{newsList.date | date}}</td>
+        </tr>
+    
+      </table>
+  
+      <div class="news-content">
+        {{newsList.description}}
+      </div>
+    </div>
+    <div class="btn-wrapper">
+      <button (click)="shareNews(newsList)" class="btn btn-primary">Share in email</button>
+    </div>
+
+  </div>
+</div>

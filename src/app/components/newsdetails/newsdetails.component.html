@@ -1,18 +1,20 @@
 <app-header></app-header>
 <div class="container">
   <h2>{{newsList.title}}</h2>
-<div class="news-wrapper">
-  <table *ngIf="newsList">
-    <tr>
-      <td>{{newsList.date | date}}</td>
-    </tr>
-  </table>
+  <div class="news-wrapper">
+    <img src="{{newsList.file}}" alt="">
+    <table *ngIf="newsList">
+      <tr>
+        <td>{{newsList.date | date}}</td>
+      </tr>
+  
+    </table>
 
-  <div class="news-content">
-    {{newsList.description}}
+    <div class="news-content">
+      {{newsList.description}}
+    </div>
   </div>
-</div>
-<button (click)="shareNews(newsList)" class="btn btn-primary">Share in email</button>
+  <button (click)="shareNews(newsList)" class="btn btn-primary">Share in email</button>
 
 </div>
 <app-footer></app-footer>

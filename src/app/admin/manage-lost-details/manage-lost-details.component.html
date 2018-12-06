@@ -1,0 +1,43 @@
+<app-dashboardheader></app-dashboardheader>
+<div id="page-wrapper" style="min-height: 217px;">
+  <div class="row">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      {{errorMessage}}
+    </div>
+    <div class="image-wrapper">
+        <img src="{{lostList.file}}" alt="">
+    </div>
+    <div class="news-wrapper">
+      <table class="responsive-table">
+        <tr>
+          <td>Lost Item:</td>
+          <td>{{lostList.goodsName}}</td>
+        </tr>
+        <tr>
+          <td>Lost Date:</td>
+          <td>{{lostList.date | date}}</td>
+        </tr>
+        <tr>
+          <td>Lost Location:</td>
+          <td>{{lostList.location}}</td>
+        </tr>
+        <tr>
+          <td>Lost By:</td>
+          <td>{{lostList.lostBy.name}}</td>
+        </tr>
+        <tr>
+          <td>Contact No</td>
+          <td>{{lostList.contact}}</td>
+        </tr>
+      </table>
+
+      <div class="news-content">
+        {{lostList.description}}
+      </div>
+    </div>
+    <div class="btn-wrapper">
+      <button (click)="shareNews(lostList)" class="btn btn-primary">Share in email</button>
+    </div>
+
+  </div>
+</div>

@@ -43,6 +43,8 @@ export class ManageAwarenessComponent implements OnInit {
           console.log(error);
         });
     $("#deleteModal").modal("hide");
-
+  }
+  viewDetail(nws){
+    this.router.navigate(['/admin/awareness/',nws._id]);
   }
 }

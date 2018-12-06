@@ -80,10 +80,9 @@ export class NewsService {
   }
 
   shareNews(url:String,email:String){
-    // const formdata: FormData = new FormData();
-    // formdata.append("url",url);
-    // formdata.append("email",email);
-    // return this._http.get(environment.baseUrl,url,email)
+    return this._http.post(environment.baseUrl+'mailer/'+email,url)
+                .pipe(catchError(this.errorHandler));
+    
   }
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);

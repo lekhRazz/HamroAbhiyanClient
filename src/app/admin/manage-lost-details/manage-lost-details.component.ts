@@ -3,14 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LostService } from 'src/app/shared-service/Lost/lost.service';
 
 @Component({
-  selector: 'app-lostdetails',
-  templateUrl: './lostdetails.component.html',
-  styleUrls: ['./lostdetails.component.css']
+  selector: 'app-manage-lost-details',
+  templateUrl: './manage-lost-details.component.html',
+  styleUrls: ['./manage-lost-details.component.css']
 })
-export class LostdetailsComponent implements OnInit {
+export class ManageLostDetailsComponent implements OnInit {
   public detailId;
   lostList: any = [];
   public errorMessage = '';
+  
   constructor(
     private route: ActivatedRoute,
     private lostService: LostService,
@@ -29,4 +30,5 @@ export class LostdetailsComponent implements OnInit {
         error => this.errorMessage = error);
     ;
   }
+
 }

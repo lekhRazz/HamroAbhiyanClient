@@ -44,4 +44,8 @@ export class ManageJobsComponent implements OnInit {
     $("#deleteModal").modal("hide");
 
   }
+
+  viewDetail(jobs){
+    this.router.navigate(['/admin/jobs/',jobs._id]);
+  }
 }

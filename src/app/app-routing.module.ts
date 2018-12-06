@@ -27,6 +27,11 @@ import { LostdetailsComponent } from './components/lostdetails/lostdetails.compo
 import { FounddetailsComponent } from './components/founddetails/founddetails.component';
 import { JobdetailsComponent } from './components/jobdetails/jobdetails.component';
 import { AwarenessdetailsComponent } from './components/awarenessdetails/awarenessdetails.component';
+import { ManageNewsDetailsComponent } from './admin/manage-news-details/manage-news-details.component';
+import { ManageLostDetailsComponent } from './admin/manage-lost-details/manage-lost-details.component';
+import { ManageFoundDetailsComponent } from './admin/manage-found-details/manage-found-details.component';
+import { ManageJobDetailsComponent } from './admin/manage-job-details/manage-job-details.component';
+import { ManageAwarenessDetailsComponent } from './admin/manage-awareness-details/manage-awareness-details.component';
 
 
 
@@ -37,8 +42,8 @@ const routes: Routes = [
   {path:'',redirectTo:'/home',pathMatch:'full'},
   {path:'home',component:HomeComponent},
   {path:'login',component:LoginComponent},
-  {path:'postnews',component:PostNewsComponent},
-  {path:'postnews/:id',component:NewsdetailsComponent},
+  {path:'news',component:PostNewsComponent},
+  {path:'news/:id',component:NewsdetailsComponent},
   {path:'lost',component:LostComponent},
   {path:'lost/:id',component:LostdetailsComponent},
   {path:'found',component:FoundComponent},
@@ -52,10 +57,15 @@ const routes: Routes = [
   {path:'dashboard',component:DashboardComponent},
   {path:'testme',component:TestmeComponent},
   {path:'admin/news',component:ManagenewsComponent},
+  {path:'admin/news/:id',component:ManageNewsDetailsComponent},
   {path:'admin/lost',component:ManageLostComponent},
+  {path:'admin/lost/:id',component:ManageLostDetailsComponent},
   {path:'admin/found',component:ManageFoundComponent},
+  {path:'admin/found/:id',component:ManageFoundDetailsComponent},
   {path:'admin/jobs',component:ManageJobsComponent},
+  {path:'admin/jobs/:id',component:ManageJobDetailsComponent},
   {path:'admin/awareness',component:ManageAwarenessComponent},
+  {path:'admin/awareness/:id',component:ManageAwarenessDetailsComponent},
   {path:'admin/aboutus',component:ManageAboutUsComponent},
   {path:"**",component:PageNotFoundComponent}
 ];
@@ -90,5 +100,10 @@ export const routingComponents=[HomeComponent,
                                 LostdetailsComponent,
                                 FounddetailsComponent,
                                 JobdetailsComponent,
-                                AwarenessdetailsComponent
+                                AwarenessdetailsComponent,
+                                ManageNewsDetailsComponent,
+                                ManageLostDetailsComponent,
+                                ManageFoundDetailsComponent,
+                                ManageJobDetailsComponent,
+                                ManageAwarenessDetailsComponent
                                ]

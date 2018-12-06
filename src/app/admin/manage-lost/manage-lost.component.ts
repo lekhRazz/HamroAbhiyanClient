@@ -43,6 +43,9 @@ export class ManageLostComponent implements OnInit {
           console.log(error);
         });
     $("#deleteModal").modal("hide");
+  }
 
+  viewDetail(lstItm){
+    this.router.navigate(['/admin/lost/',lstItm._id]);
   }
 }
