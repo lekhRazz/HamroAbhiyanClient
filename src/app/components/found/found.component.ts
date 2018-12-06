@@ -14,6 +14,8 @@ export class FoundComponent implements OnInit {
   submitted = false;
   errorMessage = '';
   listFound:any=[];
+  selectedFile: File = null;
+
   constructor(private foundService: FoundService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
@@ -34,7 +36,6 @@ export class FoundComponent implements OnInit {
       'description': ['', [Validators.required, Validators.minLength(20)]],
       'location': ['', [Validators.required, Validators.minLength(4)]],
       'contact': ['', [Validators.required]],
-      'file': [''],
       'date': ['', Validators.required]
     });
   }
@@ -42,9 +43,10 @@ export class FoundComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     console.log(this.postFoundGoodForm.value);
-    this.foundService.createFoundReport(this.postFoundGoodForm.value)
+    this.foundService.createFoundReport(this.postFoundGoodForm.value,this.selectedFile)
       .subscribe(data => console.log('success', data),
-        error => this.errorMessage = error.statusText)
+        error => this.errorMessage = error.statusText);
+        this.router.navigate(['/']);
   }
  showFoundRecords(){
    this.foundService.getFoundReports()
@@ -52,4 +54,12 @@ export class FoundComponent implements OnInit {
                       error=>this.errorMessage=error);
  }
 
+
+ selectFile(event) {
+  console.log(event);
+  this.selectedFile = event.target.files[0];
+}
+viewDetail(itm){
+  this.router.navigate(['/found/',itm._id]);
+}
 }

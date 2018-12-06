@@ -1,0 +1,33 @@
+<app-header></app-header>
+<div class="container">
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    {{errorMessage}}
+  </div>
+  <h2>{{foundList.goodsName}}</h2>
+
+  <div class="news-wrapper">
+    <table *ngIf="foundList">
+      <tr>
+        <td>Lost Date:</td>
+        <td>{{foundList.date | date}}</td>
+      </tr>
+      <tr>
+        <td>Lost Location:</td>
+        <td>{{foundList.location}}</td>
+      </tr>
+      <tr>
+        <td>Lost By:</td>
+        <td>{{foundList.foundBy.name}}</td>
+      </tr>
+      <tr>
+        <td>Contact No</td>
+        <td>{{foundList.contact}}</td>
+      </tr>
+    </table>
+
+    <div class="news-content">
+      {{foundList.description}}
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

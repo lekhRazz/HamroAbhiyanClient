@@ -22,6 +22,11 @@ import { ManageFoundComponent } from './admin/manage-found/manage-found.componen
 import { ManageJobsComponent } from './admin/manage-jobs/manage-jobs.component';
 import { ManageAwarenessComponent } from './admin/manage-awareness/manage-awareness.component';
 import { ManageAboutUsComponent } from './admin/manage-about-us/manage-about-us.component';
+import { NewsdetailsComponent } from './components/newsdetails/newsdetails.component';
+import { LostdetailsComponent } from './components/lostdetails/lostdetails.component';
+import { FounddetailsComponent } from './components/founddetails/founddetails.component';
+import { JobdetailsComponent } from './components/jobdetails/jobdetails.component';
+import { AwarenessdetailsComponent } from './components/awarenessdetails/awarenessdetails.component';
 
 
 
@@ -33,10 +38,15 @@ const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'login',component:LoginComponent},
   {path:'postnews',component:PostNewsComponent},
+  {path:'postnews/:id',component:NewsdetailsComponent},
   {path:'lost',component:LostComponent},
+  {path:'lost/:id',component:LostdetailsComponent},
   {path:'found',component:FoundComponent},
+  {path:'found/:id',component:FounddetailsComponent},
   {path:'jobs',component:JobsComponent},
+  {path:'jobs/:id',component:JobdetailsComponent},
   {path:'awareness',component:AwarenessComponent},
+  {path:'awareness/:id',component:AwarenessdetailsComponent},
   {path:'aboutus',component:AboutUsComponent},
   {path:'signup',component:SignUpComponent},
   {path:'dashboard',component:DashboardComponent},
@@ -75,5 +85,10 @@ export const routingComponents=[HomeComponent,
                                 ManageFoundComponent,
                                 ManageJobsComponent,
                                 ManageAwarenessComponent,
-                                ManageAboutUsComponent
+                                ManageAboutUsComponent,
+                                NewsdetailsComponent,
+                                LostdetailsComponent,
+                                FounddetailsComponent,
+                                JobdetailsComponent,
+                                AwarenessdetailsComponent
                                ]

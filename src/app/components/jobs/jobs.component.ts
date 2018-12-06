@@ -14,6 +14,7 @@ export class JobsComponent implements OnInit {
   submitted = false;
   errorMessage = '';
   listJobs: any = [];
+  selectedFile: File = null;
 
   constructor(private jobService: JobService, private formBuilder: FormBuilder, private router: Router) { }
 
@@ -40,16 +41,16 @@ export class JobsComponent implements OnInit {
       'phone': ['', Validators.required],
       'email': [''],
       'description': ['', [Validators.required, Validators.minLength(10)]],
-      'file': [''],
       'deadLine': ['', Validators.required]
     });
   }
 
   onSubmit() {
     this.submitted = false;
-    this.jobService.createJobs(this.postJobForm.value)
+    this.jobService.createJobs(this.postJobForm.value,this.selectedFile)
       .subscribe(data => console.log('success', data),
         error => this.errorMessage = error.statusText);
+        this.router.navigate(['/']);
   }
 
   showJobRecord() {
@@ -57,4 +58,13 @@ export class JobsComponent implements OnInit {
       .subscribe(data => this.listJobs = data,
         error => this.errorMessage = error);
   }
+
+
+ selectFile(event) {
+  console.log(event);
+  this.selectedFile = event.target.files[0];
+}
+viewDetail(job){
+  this.router.navigate(['/jobs/',job._id]);
+}
 }

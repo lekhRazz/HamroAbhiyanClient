@@ -4,4 +4,20 @@
 nav a.active{
     color:#038be5;
 }
+.container{
+    min-height: 500px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.news-wrapper{
+    min-height: 400px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+}
 
+.news-content{
+    margin-top: 10px;
+    padding-top: 10px;
+}

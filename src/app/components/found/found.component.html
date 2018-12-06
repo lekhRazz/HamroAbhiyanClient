@@ -80,7 +80,7 @@
             <div class="file-field input-field">
               <div class="btn">
                 <span>File</span>
-                <input type="file" formControlName="file">
+                <input type="file" (change)="selectFile($event)">
               </div>
               <div class="file-path-wrapper">
                 <input class="file-path validate" type="text">
@@ -118,7 +118,7 @@
       <tr>
         <td>S.N.</td>
         <td>Date</td>
-        <td>Goods Nae</td>
+        <td>Goods Name</td>
         <td>Found By</td>
         <td></td>
       </tr>
@@ -127,7 +127,12 @@
         <td>{{itm.date | date}}</td>
         <td>{{itm.goodsName}}</td>
         <td>{{itm.foundBy.name}}</td>
-        <td><a>view details</a></td>
+        <td>
+          <a (click)="viewDetail(itm)" class="btn btn-success" data-toggle="modal" data-target="#detailModalCenter">
+            View Details&nbsp;
+            <i class="fas fa-eye"></i>
+          </a>
+        </td>
       </tr>
     </table>
   </div>

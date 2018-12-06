@@ -16,8 +16,10 @@ export class AwarenessComponent implements OnInit {
   awarenessForm: FormGroup;
   submitted = false;
   errorMessage = '';
-  awarenessList:any=[];
-  constructor(private awrnService:AwarenessService,private formBuilder: FormBuilder, private router: Router) { }
+  awarenessList: any = [];
+  selectedFile: File = null;
+
+  constructor(private awrnService: AwarenessService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.createForm();
@@ -29,22 +31,30 @@ export class AwarenessComponent implements OnInit {
 
   createForm() {
     this.awarenessForm = this.formBuilder.group({
-      'title': ['',[ Validators.required,Validators.minLength(10)]],
-      'description': ['', [Validators.required,Validators.minLength(50)]],
-      'file': ['']
+      'title': ['', [Validators.required, Validators.minLength(10)]],
+      'description': ['', [Validators.required, Validators.minLength(50)]]
     });
   }
 
-  onSubmit(){
-    this.submitted=true;
+  onSubmit() {
+    this.submitted = true;
     console.log(this.awarenessForm.value);
-    this.awrnService.createNews(this.awarenessForm.value)
-                    .subscribe(data => console.log('success',data),
-                    error=> this.errorMessage=error.statusText)
+    this.awrnService.createNews(this.awarenessForm.value, this.selectedFile)
+      .subscribe(data => console.log('success', data),
+        error => this.errorMessage = error.statusText);
+    this.router.navigate(['/']);
   }
-  showAwareness(){
+  showAwareness() {
     this.awrnService.getAwarenesses()
-                    .subscribe(data=>this.awarenessList=data,
-                      error=>this.errorMessage=error);
+      .subscribe(data => this.awarenessList = data,
+        error => this.errorMessage = error);
+  }
+
+  selectFile(event) {
+    console.log(event);
+    this.selectedFile = event.target.files[0];
+  }
+  viewDetail(nws){
+    this.router.navigate(['/awareness/',nws._id]);
   }
 }

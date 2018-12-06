@@ -6,7 +6,7 @@
       <div class="alert alert-danger" *ngIf="errorMessage">
         {{errorMessage}}
       </div>
-      <form [formGroup]="postJobForm"  *ngIf="!submitted" (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="postJobForm" *ngIf="!submitted" (ngSubmit)="onSubmit()" novalidate>
         <fieldset>
           <legend>Post Job Vacancy</legend>
 
@@ -93,30 +93,30 @@
           </div>
 
           <div class="row">
-              <div class="input-field col s12">
-                <i class="material-icons prefix">contact_phone</i>
-                <input class="validate" id="phone" type="tel" formControlName="phone" pattern="^\d{10}$">
-                <label for="phone" data-error="wrong" data-success="right">Phone No.</label>
-                <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
-    
-                  <div *ngIf="phone.errors.required">
-                    phone is required.
-                  </div>
-                  <div *ngIf="phone.errors.pattern">
-                    phone must be 10 digit long.
-                  </div>
-    
+            <div class="input-field col s12">
+              <i class="material-icons prefix">contact_phone</i>
+              <input class="validate" id="phone" type="tel" formControlName="phone" pattern="^\d{10}$">
+              <label for="phone" data-error="wrong" data-success="right">Phone No.</label>
+              <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
+
+                <div *ngIf="phone.errors.required">
+                  phone is required.
                 </div>
+                <div *ngIf="phone.errors.pattern">
+                  phone must be 10 digit long.
+                </div>
+
               </div>
             </div>
-    
-            <div class="row">
-              <div class="input-field col s12">
-                <i class="material-icons prefix">mail_outline</i>
-                <input class="validate" id="email" type="email" formControlName="email">
-                <label for="email" data-error="wrong" data-success="right">Email</label>
-              </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">mail_outline</i>
+              <input class="validate" id="email" type="email" formControlName="email">
+              <label for="email" data-error="wrong" data-success="right">Email</label>
             </div>
+          </div>
 
           <div class="row">
             <div class="input-field col s12">
@@ -137,7 +137,7 @@
             <div class="file-field input-field">
               <div class="btn">
                 <span>File</span>
-                <input type="file" formControlName="file">
+                <input type="file" (change)="selectFile($event)">
               </div>
               <div class="file-path-wrapper">
                 <input class="file-path validate" type="text">
@@ -146,13 +146,13 @@
           </div>
           <div class="row">
             <div class="input-field col s12">
-              <input type="date"  formControlName="deadLine" id="deadLine">
+              <input type="date" formControlName="deadLine" id="deadLine">
               <label for="deadLine" data-error="wrong" data-success="right">Enter deadLine for this post</label>
               <div *ngIf="deadLine.invalid && (deadLine.dirty || deadLine.touched)" class="alert alert-danger">
-                  <div *ngIf="deadLine.errors.required">
-                    deadlin is required.
-                  </div>
+                <div *ngIf="deadLine.errors.required">
+                  deadlin is required.
                 </div>
+              </div>
             </div>
           </div>
           <div class="row">
@@ -183,7 +183,12 @@
         <td>{{job.deadLine | date}}</td>
         <td>{{job.post}}</td>
         <td>{{job.postedBy.name}}</td>
-        <td><a>view details</a></td>
+        <td>
+          <a (click)="viewDetail(job)" class="btn btn-success" data-toggle="modal" data-target="#detailModalCenter">
+            View Details&nbsp;
+            <i class="fas fa-eye"></i>
+          </a>
+        </td>
       </tr>
     </table>
   </div>

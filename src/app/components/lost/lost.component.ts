@@ -14,6 +14,7 @@ export class LostComponent implements OnInit {
   submitted = false;
   errorMessage = '';
   lostItemList:any=[];
+  selectedFile: File = null;
 
   constructor(private lostService:LostService,private formBuilder: FormBuilder, private router: Router) { }
 
@@ -34,7 +35,6 @@ export class LostComponent implements OnInit {
       'location': ['', [Validators.required,Validators.minLength(4)]],
       'contact': ['', [Validators.required]],
       'description': ['', [Validators.required,Validators.minLength(20)]],
-      'file': [''],
       'date': ['', Validators.required]
     });
   }
@@ -43,14 +43,24 @@ export class LostComponent implements OnInit {
   onSubmit() {
     this.submitted=true;
     console.log(this.postLostGoodForm.value);
-    this.lostService.createLostReport(this.postLostGoodForm.value)
+    this.lostService.createLostReport(this.postLostGoodForm.value,this.selectedFile)
                     .subscribe(data => console.log('success',data),
-                    error=> this.errorMessage=error.statusText)
+                    error=> this.errorMessage=error.statusText);
+    this.router.navigate(['/']);
   }
 
   showLostRecords(){
     this.lostService.getLostRecords()
         .subscribe(data=>this.lostItemList=data,
           error=>this.errorMessage=error);
+  }
+
+
+  selectFile(event) {
+    console.log(event);
+    this.selectedFile = event.target.files[0];
+  }
+  viewDetail(lstItm){
+    this.router.navigate(['/lost/',lstItm._id]);
   }
 }

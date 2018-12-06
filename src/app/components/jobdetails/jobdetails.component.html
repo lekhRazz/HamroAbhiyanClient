@@ -1,0 +1,49 @@
+<app-header></app-header>
+<div class="container">
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    {{errorMessage}}
+  </div>
+  <h2>{{jobList.post}}</h2>
+
+  <div class="news-wrapper">
+    <table *ngIf="jobList">
+      <tr>
+        <td>Dead Line:</td>
+        <td>{{jobList.deadLine | date}}</td>
+      </tr>
+      <tr>
+        <td>Office Nae:</td>
+        <td>{{jobList.officeName}}</td>
+      </tr>
+      <tr>
+        <td>No. of Employee</td>
+        <td>{{jobList.emplyNumber}}</td>
+      </tr>
+      <tr>
+        <td>Address:</td>
+        <td>{{jobList.address}}</td>
+      </tr>
+      <tr>
+        <td>Contact No</td>
+        <td>{{jobList.phone}}</td>
+      </tr>
+      <tr>
+        <td>Salary</td>
+        <td>{{jobList.salary}}</td>
+      </tr>
+      <tr>
+        <td>Email:</td>
+        <td>{{jobList.email}}</td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td>{{jobList.description}}</td>
+      </tr>
+    </table>
+
+    <div class="news-content">
+      {{foundList.description}}
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

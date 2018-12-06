@@ -6,7 +6,7 @@
       <div class="alert alert-danger" *ngIf="errorMessage">
         {{errorMessage}}
       </div>
-      <form [formGroup]="postNewsForm" *ngIf="!submitted" (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="postNewsForm" (ngSubmit)="onSubmit()" novalidate>
         <fieldset>
           <legend>Post News</legend>
 
@@ -47,7 +47,7 @@
             <div class="file-field input-field">
               <div class="btn">
                 <span>File</span>
-                <input type="file" formControlName="file">
+                <input type="file" (change)="selectFile($event)">
               </div>
               <div class="file-path-wrapper">
                 <input class="file-path validate" type="text">
@@ -83,7 +83,11 @@
         <td>{{nws.date | date}}</td>
         <td>{{nws.title}}</td>
         <td>{{nws.createdBy.name}}</td>
-        <td><a>View news</a></td>
+        <td>
+          <a (click)="viewDetail(nws)" class="btn btn-success" data-toggle="modal" data-target="#detailModalCenter">Read News&nbsp;
+            <i class="fas fa-eye"></i>
+          </a>
+        </td>
       </tr>
     </table>
   </div>
