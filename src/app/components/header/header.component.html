@@ -16,7 +16,8 @@
 </div>
 <nav>
   <div class="nav-wrapper">
-    <a style="margin-right: 10px;" routerLink="/login" class="right"><i class="small material-icons left"></i>Login</a>
+    <a *ngIf="isLogdedIn" routerLink="/" style="margin-right: 30px;padding-left:5px;" (click)="signout()" class="right">Sign Out</a>
+    <a *ngIf="!isLogdedIn" routerLink="/login" class="right"><i class="small material-icons left"></i>Login</a>&nbsp;&nbsp;
     <ul id="nav-mobile" class="left hide-on-med-and-down">
       <li><a routerLink="/home"><i class="small material-icons left">home</i>Home</a></li>
       <li><a routerLink="/news">News</a></li>

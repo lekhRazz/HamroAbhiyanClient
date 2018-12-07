@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NewsService } from 'src/app/shared-service/News/news.service';
+import { UserService } from 'src/app/shared-service/User/user.service';
+import { User } from 'src/app/classes/user';
 
 @Component({
   selector: 'app-post-news',
@@ -14,16 +16,21 @@ export class PostNewsComponent implements OnInit {
   errorMessage = '';
   newsList: any = [];
   selectedFile: File = null;
-  
+  user:User=new User();
+  public userId;
+
   constructor(
     private newsService: NewsService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private userService:UserService
   ) { }
 
   ngOnInit() {
     this.createForm();
     this.showNewsPage();
+    console.log("message here");
+    console.log(this.userService.getUserId());
   }
 
   get title() { return this.postNewsForm.get('title'); }
@@ -32,7 +39,8 @@ export class PostNewsComponent implements OnInit {
   createForm() {
     this.postNewsForm = this.formBuilder.group({
       'title': ['', [Validators.required, Validators.minLength(10)]],
-      'description': ['', [Validators.required, Validators.minLength(50)]]
+      'description': ['', [Validators.required, Validators.minLength(50)]],
+      'createdBy':[this.userService.getUserId()]
     });
   }
 
@@ -42,11 +50,19 @@ export class PostNewsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.postNewsForm.value);
-    this.newsService.createNews(this.postNewsForm.value, this.selectedFile)
-      .subscribe(data => console.log('success', data),
-        error => this.errorMessage = error.statusText);
-    this.router.navigate(['/']);
+    let id = this.userService.getUserId();
+    this.userId = id;
+    if (this.userId===null) {
+      this.errorMessage="please login before uploading record";
+    } else{
+      console.log(this.postNewsForm.value);
+      this.newsService.createNews(this.postNewsForm.value, this.selectedFile)
+        .subscribe(data => console.log('success', data),
+          error => this.errorMessage = error.statusText);
+      this.postNewsForm.reset();
+     
+    }
+    
   }
 
   showNewsPage() {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LostService } from 'src/app/shared-service/Lost/lost.service';
+import { UserService } from 'src/app/shared-service/User/user.service';
 
 @Component({
   selector: 'app-lost',
@@ -13,10 +14,15 @@ export class LostComponent implements OnInit {
   postLostGoodForm: FormGroup;
   submitted = false;
   errorMessage = '';
-  lostItemList:any=[];
+  lostItemList: any = [];
   selectedFile: File = null;
 
-  constructor(private lostService:LostService,private formBuilder: FormBuilder, private router: Router) { }
+  constructor(
+    private lostService: LostService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private userService:UserService
+  ) { }
 
   ngOnInit() {
     this.createForm();
@@ -31,28 +37,29 @@ export class LostComponent implements OnInit {
 
   createForm() {
     this.postLostGoodForm = this.formBuilder.group({
-      'goodsName': ['', [Validators.required,Validators.minLength(3)]],
-      'location': ['', [Validators.required,Validators.minLength(4)]],
+      'goodsName': ['', [Validators.required, Validators.minLength(3)]],
+      'location': ['', [Validators.required, Validators.minLength(4)]],
       'contact': ['', [Validators.required]],
-      'description': ['', [Validators.required,Validators.minLength(20)]],
-      'date': ['', Validators.required]
+      'description': ['', [Validators.required, Validators.minLength(20)]],
+      'date': ['', Validators.required],
+      'lostBy': [this.userService.getUserId()]
     });
   }
 
 
   onSubmit() {
-    this.submitted=true;
+    this.submitted = true;
     console.log(this.postLostGoodForm.value);
-    this.lostService.createLostReport(this.postLostGoodForm.value,this.selectedFile)
-                    .subscribe(data => console.log('success',data),
-                    error=> this.errorMessage=error.statusText);
+    this.lostService.createLostReport(this.postLostGoodForm.value, this.selectedFile)
+      .subscribe(data => console.log('success', data),
+        error => this.errorMessage = error.statusText);
     this.router.navigate(['/']);
   }
 
-  showLostRecords(){
+  showLostRecords() {
     this.lostService.getLostRecords()
-        .subscribe(data=>this.lostItemList=data,
-          error=>this.errorMessage=error);
+      .subscribe(data => this.lostItemList = data,
+        error => this.errorMessage = error);
   }
 
 
@@ -60,7 +67,7 @@ export class LostComponent implements OnInit {
     console.log(event);
     this.selectedFile = event.target.files[0];
   }
-  viewDetail(lstItm){
-    this.router.navigate(['/lost/',lstItm._id]);
+  viewDetail(lstItm) {
+    this.router.navigate(['/lost/', lstItm._id]);
   }
 }

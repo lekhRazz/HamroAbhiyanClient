@@ -18,11 +18,12 @@ export class SignUpComponent implements OnInit {
   submitted = false;
   errorMessage = '';
   userForm: User = new User();
+  public userResponse: any = [];
 
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -49,9 +50,12 @@ export class SignUpComponent implements OnInit {
     console.log(this.signUpForm);
     console.log(this.userForm);
     this.userService.saveUser(this.userForm)
-      .subscribe(data => console.log('success', data),
-        error => this.errorMessage = error.statusText);
-    this.router.navigate(['/login']);
+      .subscribe(data => {
+        this.userResponse = data,
+          console.log(this.userResponse);
+        this.setToken(this.userResponse.token, this.userResponse.user._id, this.userResponse.user.name);
+        this.router.navigate(['/'])
+      }, error => this.errorMessage = error);
   }
 
 
@@ -68,4 +72,11 @@ export class SignUpComponent implements OnInit {
     });
   }
 
+  setToken(token: any, id: any, name: any) {
+    if (typeof window != "undefined") {
+      window.localStorage.setItem('x-auth-token', token);
+      window.localStorage.setItem('id', id);
+      window.localStorage.setItem('name', name);
+    }
+  }
 }

@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Goods } from 'src/app/classes/goods';
 import { environment } from 'src/environments/environment';
+import { UserService } from '../User/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LostService {
-
+  userService:UserService
+  // private token=this.userService.getToken();
+  // private headers = new HttpHeaders({ 'Content-Type': 'application/json','x-auth-token':this.token });
 
   constructor(private _http: HttpClient) { }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JobService } from 'src/app/shared-service/Job/job.service';
+import { UserService } from 'src/app/shared-service/User/user.service';
 
 @Component({
   selector: 'app-jobs',
@@ -16,7 +17,13 @@ export class JobsComponent implements OnInit {
   listJobs: any = [];
   selectedFile: File = null;
 
-  constructor(private jobService: JobService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(
+    private jobService: JobService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private userService: UserService
+
+  ) { }
 
   ngOnInit() {
     this.createForm();
@@ -41,16 +48,17 @@ export class JobsComponent implements OnInit {
       'phone': ['', Validators.required],
       'email': [''],
       'description': ['', [Validators.required, Validators.minLength(10)]],
-      'deadLine': ['', Validators.required]
+      'deadLine': ['', Validators.required],
+      'postedBy':[this.userService.getUserId()]
     });
   }
 
   onSubmit() {
     this.submitted = false;
-    this.jobService.createJobs(this.postJobForm.value,this.selectedFile)
+    this.jobService.createJobs(this.postJobForm.value, this.selectedFile)
       .subscribe(data => console.log('success', data),
         error => this.errorMessage = error.statusText);
-        this.router.navigate(['/']);
+    this.router.navigate(['/']);
   }
 
   showJobRecord() {
@@ -60,11 +68,11 @@ export class JobsComponent implements OnInit {
   }
 
 
- selectFile(event) {
-  console.log(event);
-  this.selectedFile = event.target.files[0];
-}
-viewDetail(job){
-  this.router.navigate(['/jobs/',job._id]);
-}
+  selectFile(event) {
+    console.log(event);
+    this.selectedFile = event.target.files[0];
+  }
+  viewDetail(job) {
+    this.router.navigate(['/jobs/', job._id]);
+  }
 }

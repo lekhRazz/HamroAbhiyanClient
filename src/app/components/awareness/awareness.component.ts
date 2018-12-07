@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AwarenessService } from 'src/app/shared-service/Awareness/awareness.service';
 import { Observable } from 'rxjs';
+import { UserService } from 'src/app/shared-service/User/user.service';
 
 @Component({
   selector: 'app-awareness',
@@ -19,7 +20,12 @@ export class AwarenessComponent implements OnInit {
   awarenessList: any = [];
   selectedFile: File = null;
 
-  constructor(private awrnService: AwarenessService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(
+    private awrnService: AwarenessService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
     this.createForm();
@@ -32,7 +38,8 @@ export class AwarenessComponent implements OnInit {
   createForm() {
     this.awarenessForm = this.formBuilder.group({
       'title': ['', [Validators.required, Validators.minLength(10)]],
-      'description': ['', [Validators.required, Validators.minLength(50)]]
+      'description': ['', [Validators.required, Validators.minLength(50)]],
+      'postedBy':[this.userService.getUserId()]
     });
   }
 
@@ -54,7 +61,7 @@ export class AwarenessComponent implements OnInit {
     console.log(event);
     this.selectedFile = event.target.files[0];
   }
-  viewDetail(nws){
-    this.router.navigate(['/awareness/',nws._id]);
+  viewDetail(nws) {
+    this.router.navigate(['/awareness/', nws._id]);
   }
 }

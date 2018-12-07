@@ -3,6 +3,9 @@
 <div class="container">
   <div id="login-page" class="row">
     <div class="col s12 z-depth-6 card-panel">
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{errorMessage}}
+      </div>
       <form [formGroup]="signInForm" class="login-form" (ngSubmit)="onSubmit()">
         <div class="row">
         </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, Form } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FoundService } from 'src/app/shared-service/Found/found.service';
+import { UserService } from 'src/app/shared-service/User/user.service';
 
 @Component({
   selector: 'app-found',
@@ -13,10 +14,16 @@ export class FoundComponent implements OnInit {
   postFoundGoodForm: FormGroup;
   submitted = false;
   errorMessage = '';
-  listFound:any=[];
+  listFound: any = [];
   selectedFile: File = null;
 
-  constructor(private foundService: FoundService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(
+    private foundService: FoundService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private userService:UserService
+
+    ) { }
 
   ngOnInit() {
     this.createForm();
@@ -36,30 +43,31 @@ export class FoundComponent implements OnInit {
       'description': ['', [Validators.required, Validators.minLength(20)]],
       'location': ['', [Validators.required, Validators.minLength(4)]],
       'contact': ['', [Validators.required]],
-      'date': ['', Validators.required]
+      'date': ['', Validators.required],
+      'foundBy':[this.userService.getUserId()]
     });
   }
 
   onSubmit() {
     this.submitted = true;
     console.log(this.postFoundGoodForm.value);
-    this.foundService.createFoundReport(this.postFoundGoodForm.value,this.selectedFile)
+    this.foundService.createFoundReport(this.postFoundGoodForm.value, this.selectedFile)
       .subscribe(data => console.log('success', data),
         error => this.errorMessage = error.statusText);
-        this.router.navigate(['/']);
+    this.router.navigate(['/']);
   }
- showFoundRecords(){
-   this.foundService.getFoundReports()
-                    .subscribe(data=>this.listFound=data,
-                      error=>this.errorMessage=error);
- }
+  showFoundRecords() {
+    this.foundService.getFoundReports()
+      .subscribe(data => this.listFound = data,
+        error => this.errorMessage = error);
+  }
 
 
- selectFile(event) {
-  console.log(event);
-  this.selectedFile = event.target.files[0];
-}
-viewDetail(itm){
-  this.router.navigate(['/found/',itm._id]);
-}
+  selectFile(event) {
+    console.log(event);
+    this.selectedFile = event.target.files[0];
+  }
+  viewDetail(itm) {
+    this.router.navigate(['/found/', itm._id]);
+  }
 }
