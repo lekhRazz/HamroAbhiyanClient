@@ -4,6 +4,7 @@ import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { News } from 'src/app/classes/news';
 import { environment } from 'src/environments/environment';
+import { Sendemail } from 'src/app/classes/sendemail';
 
 
 @Injectable({
@@ -79,10 +80,11 @@ export class NewsService {
       .pipe(catchError(this.errorHandler));
   }
 
-  shareNews(url:String,email:String){
-    return this._http.post(environment.baseUrl+'mailer/'+email,url)
-                .pipe(catchError(this.errorHandler));
-    
+  shareNews(sendEmail: Sendemail) {
+    console.log(JSON.stringify(sendEmail))
+    return this._http.post(environment.baseUrl + 'mailer/', sendEmail)
+                      .pipe(catchError(this.errorHandler));
+
   }
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);

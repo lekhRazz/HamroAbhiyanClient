@@ -21,12 +21,10 @@ export class LostService {
         formdata.append("file", file);
       }
       formdata.append("goods", JSON.stringify(goods));
-
       const req = new HttpRequest('POST', environment.baseUrl + 'lost', formdata, {
         reportProgress: true,
         responseType: 'text'
       });
-
       return this._http.request(req);
   }
 

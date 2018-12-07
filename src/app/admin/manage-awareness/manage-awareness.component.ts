@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AwarenessService } from 'src/app/shared-service/Awareness/awareness.service';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/classes/user';
+import { UserService } from 'src/app/shared-service/User/user.service';
 
 @Component({
   selector: 'app-manage-awareness',
@@ -10,26 +12,32 @@ import { Router } from '@angular/router';
 })
 export class ManageAwarenessComponent implements OnInit {
 
+  user: User = new User();
   errorMessage = '';
-  awarenessList:any=[];
+  awarenessList: any = [];
 
-  constructor(private awrnService:AwarenessService,private formBuilder: FormBuilder, private router: Router) { }
+  constructor(
+    private awrnService: AwarenessService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+  private userService:UserService,
+  ) { }
 
   ngOnInit() {
     this.showAwareness();
-
+    // console.log(this.userService.getter());
   }
 
 
-  showAwareness(){
+  showAwareness() {
     this.awrnService.getAwarenesses()
-                    .subscribe(data=>this.awarenessList=data,
-                      error=>this.errorMessage=error);
+      .subscribe(data => this.awarenessList = data,
+        error => this.errorMessage = error);
   }
 
 
   deleteAwarenessData: any;
-  deleteAwarenessRecord(nws){
+  deleteAwarenessRecord(nws) {
     this.deleteAwarenessData = nws;
     $("#deleteModal").modal("show");
   }
@@ -44,7 +52,7 @@ export class ManageAwarenessComponent implements OnInit {
         });
     $("#deleteModal").modal("hide");
   }
-  viewDetail(nws){
-    this.router.navigate(['/admin/awareness/',nws._id]);
+  viewDetail(nws) {
+    this.router.navigate(['/admin/awareness/', nws._id]);
   }
 }

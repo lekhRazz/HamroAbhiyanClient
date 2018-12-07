@@ -15,19 +15,19 @@ import { phoneValidator, passValidator } from '../validators/custom-validator';
 export class SignUpComponent implements OnInit {
 
   signUpForm: FormGroup;
-
   submitted = false;
   errorMessage = '';
-  userForm:User =  new User('','','','','','');
+  userForm: User = new User();
 
-
-
-
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(
+    private userService: UserService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.createForm();
-  
+
   }
 
 
@@ -40,19 +40,18 @@ export class SignUpComponent implements OnInit {
 
 
   onSubmit() {
-    this.userForm.address=this.signUpForm.value.address;
-    this.userForm.email=this.signUpForm.value.email;
-    this.userForm.name=this.signUpForm.value.name;
-    this.userForm.phone=this.signUpForm.value.phone;
-    this.userForm.password=this.signUpForm.value.password;
+    this.userForm.address = this.signUpForm.value.address;
+    this.userForm.email = this.signUpForm.value.email;
+    this.userForm.name = this.signUpForm.value.name;
+    this.userForm.phone = this.signUpForm.value.phone;
+    this.userForm.password = this.signUpForm.value.password;
+    // this.userForm.isAdmin=false;
     console.log(this.signUpForm);
     console.log(this.userForm);
-  //  this.signUpForm.value.confirmPassword=null;
-  //  console.log(this.signUpForm.controls.confirmPassword.value);
-   this.userService.saveUser(this.userForm)
-        .subscribe(data => console.log('success',data),
-        error=> this.errorMessage=error.statusText);
-   this.router.navigate(['/login']);
+    this.userService.saveUser(this.userForm)
+      .subscribe(data => console.log('success', data),
+        error => this.errorMessage = error.statusText);
+    this.router.navigate(['/login']);
   }
 
 

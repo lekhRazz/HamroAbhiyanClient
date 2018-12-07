@@ -34,12 +34,4 @@ export class NewsdetailsComponent implements OnInit {
       .subscribe(data => this.newsList = data,
         error => this.errorMessage = error);
   }
-
-  shareNews(news) {
-    let newsUrl = this.router.url;
-    let reporterEmail = news.createdBy.email;
-    console.log(newsUrl);
-    console.log(reporterEmail);
-
-  }
 }

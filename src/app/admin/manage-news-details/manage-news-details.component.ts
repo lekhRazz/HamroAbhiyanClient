@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NewsService } from 'src/app/shared-service/News/news.service';
+import { Sendemail } from 'src/app/classes/sendemail';
 
 @Component({
   selector: 'app-manage-news-details',
@@ -14,6 +15,8 @@ export class ManageNewsDetailsComponent implements OnInit {
   public detailId;
   public imageUrl = '';
   mailResponse: any = [];
+  sendEmail: Sendemail = new Sendemail();
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -34,11 +37,12 @@ export class ManageNewsDetailsComponent implements OnInit {
   }
 
   shareNews(news) {
-    let newsUrl = "Don't miss our latest news.Click below the link and read latest news" + " " + "localhost:4200/" + this.detailId;
-    let reporterEmail = news.createdBy.email;
-    console.log(newsUrl);
-    console.log(reporterEmail);
-    this.newsService.shareNews(newsUrl, reporterEmail)
+    let newsUrl = "localhost:4200/news/" + this.detailId;
+    this.sendEmail.email = news.createdBy.email;
+    this.sendEmail.message = "Don't miss our latest news.Click below the link and read latest news";
+    this.sendEmail.postUrl = newsUrl;
+    console.log(this.sendEmail)
+    this.newsService.shareNews(this.sendEmail)
       .subscribe(data => this.mailResponse = data,
         error => this.errorMessage = error
       );
